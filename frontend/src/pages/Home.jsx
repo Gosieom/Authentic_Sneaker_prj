@@ -13,7 +13,7 @@ const Home = () => {
     productsError, 
     fetchProducts 
   } = useStore();
-
+// 
   // Fetch products on component mount
   useEffect(() => {
     if (products.length === 0 && !productsLoading) {

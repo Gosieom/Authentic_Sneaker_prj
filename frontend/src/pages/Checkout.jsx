@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CreditCard, Lock, CheckCircle, Package, Truck, ArrowLeft, AlertCircle } from 'lucide-react';
 import { useStore } from '../store/useStore';
-
+//
 const Checkout = () => {
   const navigate = useNavigate();
   const { 
