@@ -61,7 +61,7 @@ const ProductDetail = () => {
       setSelectedSize((Array.isArray(product.sizes) && product.sizes[0]) || '');
     }
   }, [product]);
-
+//
   const images = (product && Array.isArray(product.images)) ? product.images : [];
   const sizes = (product && Array.isArray(product.sizes)) ? product.sizes : [];
 

@@ -56,7 +56,7 @@ const Home = () => {
             </div>
           </section>
         )}
-
+//
         {/* Featured Products */}
         {!productsLoading && !productsError && featuredProducts.length > 0 && (
           <section className="py-16">
