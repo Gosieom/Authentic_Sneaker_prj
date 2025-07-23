@@ -4,7 +4,7 @@ import { useStore } from '../store/useStore';
 import { sizes } from '../data/products';
 
 const categories = ['Sports', 'Fashion', 'Party', 'Tourist', 'Jungle'];
-
+//
 const Filters = ({ isOpen, onClose }) => {
   const { filters, setFilters, resetFilters } = useStore();
   
