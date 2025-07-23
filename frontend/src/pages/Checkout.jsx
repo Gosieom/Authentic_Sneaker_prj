@@ -13,7 +13,7 @@ const Checkout = () => {
     isAuthenticated,
     user // <-- get user from store
   } = useStore();
-  
+  //
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');

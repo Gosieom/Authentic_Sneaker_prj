@@ -29,7 +29,7 @@ const Contact = () => {
                 </p>
               </div>
             </div>
-
+//
             <div className="flex items-start space-x-4">
               <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
                 <Phone className="h-6 w-6 text-orange-500" />

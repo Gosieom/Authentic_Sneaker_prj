@@ -5,7 +5,7 @@ import { useStore } from '../store/useStore';
 
 const Cart = () => {
   const { cart, updateQuantity, removeFromCart, getCartTotal, getCartCount } = useStore();
-
+// 
   const total = getCartTotal();
   const count = getCartCount();
 
