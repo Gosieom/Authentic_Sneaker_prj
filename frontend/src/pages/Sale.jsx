@@ -55,12 +55,12 @@ const Sale = () => {
           <span className="text-red-500">Sale</span> Collection
         </h1>
         <p className="text-lg text-slate-600">
-          Limited time offers on premium footwear - Don't miss out!
+          Price Drops🔥 Style Stays High🔥
         </p>
       </div>
       <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
         <p className="text-red-800 text-center font-medium">
-          🔥 Flash Sale: Up to 30% off selected items - Limited time only!
+          Flash Sale: Up to 50% off selected items - Limited time only!
         </p>
       </div>
       {loading ? (

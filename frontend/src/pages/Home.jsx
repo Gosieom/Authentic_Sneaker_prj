@@ -62,8 +62,8 @@ const Home = () => {
           <section className="py-16">
             <div className="flex justify-between items-center mb-8">
               <div>
-                <h2 className="text-3xl font-bold text-slate-900 mb-2">Featured Collection</h2>
-                <p className="text-slate-600">Handpicked styles that define the season</p>
+                <h2 className="text-3xl font-bold text-slate-900 mb-2">New and Featured</h2>
+                <p className="text-slate-600">Limited drops. Unlimited swagger</p>
               </div>
               <Link 
                 to="/featured"

@@ -14,7 +14,7 @@ const Cart = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center">
           <ShoppingBag className="h-16 w-16 text-slate-400 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-slate-900 mb-4">Your Cart is Empty</h1>
+          <h1 className="text-2xl font-bold text-slate-900 mb-4">Cart is Empty</h1>
           <p className="text-slate-600 mb-8">Looks like you haven't added any items to your cart yet.</p>
           <Link
             to="/shop"

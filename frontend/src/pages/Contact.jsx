@@ -21,11 +21,11 @@ const Contact = () => {
                 <MapPin className="h-6 w-6 text-orange-500" />
               </div>
               <div>
-                <h3 className="text-lg font-medium text-slate-900 mb-1">Our Location</h3>
+                <h3 className="text-lg font-medium text-slate-900 mb-1">Location</h3>
                 <p className="text-slate-600">
-                  123 Style Street<br />
-                  Fashion City, FC 12345<br />
-                  United States
+                  007 Style Street<br />
+                  Kathmandu City, 007<br />
+                  Nepal
                 </p>
               </div>
             </div>
@@ -37,8 +37,8 @@ const Contact = () => {
               <div>
                 <h3 className="text-lg font-medium text-slate-900 mb-1">Phone Number</h3>
                 <p className="text-slate-600">
-                  +1 (555) 123-4567<br />
-                  Monday - Friday: 9AM - 6PM EST
+                  +9770845543<br />
+                  Monday - Friday: 9AM - 5PM NPT
                 </p>
               </div>
             </div>
@@ -62,15 +62,15 @@ const Contact = () => {
             <div className="space-y-1 text-slate-600">
               <div className="flex justify-between">
                 <span>Monday - Friday</span>
-                <span>9:00 AM - 8:00 PM</span>
+                <span>9:00 AM - 5:00 PM</span>
               </div>
               <div className="flex justify-between">
                 <span>Saturday</span>
-                <span>10:00 AM - 6:00 PM</span>
+                <span>10:00 AM - 4:00 PM</span>
               </div>
               <div className="flex justify-between">
                 <span>Sunday</span>
-                <span>12:00 PM - 5:00 PM</span>
+                <span>10:00 PM - 4:00 PM</span>
               </div>
             </div>
           </div>
@@ -104,7 +104,7 @@ const Contact = () => {
                 />
               </div>
 
-              <div>
+              {/* <div>
                 <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
                   Email Address
                 </label>
@@ -115,7 +115,7 @@ const Contact = () => {
                   required
                   className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
-              </div>
+              </div> */}
 
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-slate-700 mb-2">
