@@ -10,7 +10,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
-//
+
 // Request interceptor for debugging
 api.interceptors.request.use(
   (config) => {

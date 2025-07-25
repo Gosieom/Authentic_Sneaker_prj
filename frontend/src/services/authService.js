@@ -10,7 +10,7 @@ export const authService = {
       throw new Error(error.response?.data?.message || 'Signup failed');
     }
   },
-//
+
   // Login
   async login(data) {
     try {
