@@ -5,7 +5,7 @@ const Sale = () => {
   const [saleProducts, setSaleProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-//
+
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);

@@ -13,7 +13,7 @@ const Signup = () => {
     confirmPassword: ''
   });
   const [errors, setErrors] = useState({});
-//
+
   const navigate = useNavigate();
   const location = useLocation();
   const { signup, isAuthenticated, authLoading, authError, clearAuthError } = useStore();

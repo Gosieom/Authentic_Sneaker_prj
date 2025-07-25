@@ -88,7 +88,7 @@ const Shop = () => {
           break;
       }
     }
-//
+
     return filtered;
   }, [products, filters]);
 

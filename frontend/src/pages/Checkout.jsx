@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CreditCard, Lock, CheckCircle, Package, Truck, ArrowLeft, AlertCircle } from 'lucide-react';
 import { useStore } from '../store/useStore';
-//
+
 const Checkout = () => {
   const navigate = useNavigate();
   const { 
@@ -13,7 +13,7 @@ const Checkout = () => {
     isAuthenticated,
     user // <-- get user from store
   } = useStore();
-  //
+  
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
