@@ -13,7 +13,7 @@ import { useAuthStore } from '../../stores/authStore';
 const Sidebar = ({ isOpen, onClose }) => {
   const { currentPage, setCurrentPage } = useUIStore();
   const { logout } = useAuthStore();
-
+//
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'products', label: 'Products', icon: Package },
