@@ -6,7 +6,7 @@ import { useAuthStore } from '../../stores/authStore';
 const Header = () => {
   const { sidebarOpen, setSidebarOpen, currentPage } = useUIStore();
   const { user } = useAuthStore();
-//
+
   const getPageTitle = () => {
     switch (currentPage) {
       case 'dashboard': return 'Dashboard';

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { CheckCircle, XCircle, Info, X } from 'lucide-react';
 import { useUIStore } from '../../stores/uiStore';
-//
+
 const Toast = () => {
   const { toast, hideToast } = useUIStore();
 
