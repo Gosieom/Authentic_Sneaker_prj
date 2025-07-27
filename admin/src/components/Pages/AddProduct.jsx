@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Upload, X, Plus } from 'lucide-react';
 import { useDataStore } from '../../stores/dataStore';
 import { useUIStore } from '../../stores/uiStore';
-//
+
 const AddProduct = () => {
   const { addProduct } = useDataStore();
   const { showToast, setCurrentPage } = useUIStore();
