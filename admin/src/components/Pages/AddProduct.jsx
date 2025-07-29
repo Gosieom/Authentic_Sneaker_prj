@@ -250,7 +250,7 @@ const AddProduct = () => {
                     value={image}
                     onChange={(e) => handleImageChange(index, e.target.value)}
                     className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-                    placeholder="https://example.com/image.jpg"
+                    placeholder="https://.*\.(jpg|jpeg|png)$"
                     disabled={isSubmitting}
                   />
                   {formData.product_images.length > 1 && (

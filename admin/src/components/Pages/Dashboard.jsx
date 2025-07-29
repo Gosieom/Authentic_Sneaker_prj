@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Package, IndianRupee, ShoppingCart, AlertCircle, RefreshCw } from 'lucide-react';
 import { useUIStore } from '../../stores/uiStore';
-// import { IndianRupee } from 'lucide-react';
+
 
 const Dashboard = () => {
   const { showToast } = useUIStore();
