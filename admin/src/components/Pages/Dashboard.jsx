@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Package, DollarSign, ShoppingCart, AlertCircle, RefreshCw } from 'lucide-react';
+import { Package, IndianRupee, ShoppingCart, AlertCircle, RefreshCw } from 'lucide-react';
 import { useUIStore } from '../../stores/uiStore';
+// import { IndianRupee } from 'lucide-react';
 
 const Dashboard = () => {
   const { showToast } = useUIStore();
@@ -46,7 +47,7 @@ const Dashboard = () => {
 
   const stats = [
     { title: 'Total Products', value: dashboardData.totalProducts, icon: Package, color: 'bg-blue-500' },
-    { title: 'Total Sales', value: `₹${dashboardData.totalSales.toFixed(2)}`, icon: DollarSign, color: 'bg-green-500' },
+    { title: 'Total Sales', value: `₹${dashboardData.totalSales.toFixed(2)}`, icon: IndianRupee, color: 'bg-green-500' },
     { title: 'Total Orders', value: dashboardData.totalOrders, icon: ShoppingCart, color: 'bg-purple-500' },
     { title: 'Low Stock Items', value: dashboardData.lowStockItems, icon: AlertCircle, color: 'bg-orange-500' },
   ];

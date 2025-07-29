@@ -10,7 +10,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
-//
+
 // Request interceptor to handle auth
 api.interceptors.request.use(
   (config) => {

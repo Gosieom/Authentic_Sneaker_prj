@@ -1,5 +1,5 @@
 import api from './api';
-//
+
 export const orderService = {
   async getAllOrders() {
     try {
