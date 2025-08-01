@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Edit, Trash2, Package } from 'lucide-react';
 import { useDataStore } from '../../stores/dataStore';
-//
+
 const Categories = () => {
   const { categories, products } = useDataStore();
   const [isAdding, setIsAdding] = useState(false);
