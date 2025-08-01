@@ -1,4 +1,5 @@
 // middleware/auth.js
+//
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import pool from '../db/db.js';

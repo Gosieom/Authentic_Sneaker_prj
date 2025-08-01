@@ -41,4 +41,4 @@ CREATE TABLE public.orders (
   delivery_status text DEFAULT 'processing',
   created_at timestamp DEFAULT now()
 );
--- o
+
