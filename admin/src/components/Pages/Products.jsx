@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Filter, Edit, Trash2, Eye, Plus, RefreshCw } from 'lucide-react';
+import { Search, Filter, Edit, Trash2, Plus, RefreshCw } from 'lucide-react';
 import { useDataStore } from '../../stores/dataStore';
 import { useUIStore } from '../../stores/uiStore';
 
 const Products = () => {
   const { products, productsLoading, categories, fetchProducts, deleteProduct } = useDataStore();
-  const { showToast, setCurrentPage } = useUIStore();
+  const { setCurrentPage } = useUIStore();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState('all');
   const [filterStatus, setFilterStatus] = useState('all');
@@ -30,7 +30,7 @@ const Products = () => {
       const data = await res.json();
       setProductsState(Array.isArray(data.products) ? data.products : []);
     } catch (error) {
-      showToast(error.message || 'Failed to load products', 'error');
+      // showToast(error.message || 'Failed to load products', 'error');
       setProductsState([]);
     }
   };
@@ -48,11 +48,11 @@ const Products = () => {
         }
       );
       if (!res.ok) throw new Error('Failed to update product');
-      showToast('Product updated successfully', 'success');
+      // showToast('Product updated successfully', 'success');
       await loadProducts();
       setEditModalOpen(false);
     } catch (error) {
-      showToast(error.message || 'Failed to update product', 'error');
+      // showToast(error.message || 'Failed to update product', 'error');
     } finally {
       setLoadingId(null);
     }
@@ -70,10 +70,10 @@ const Products = () => {
           }
         );
         if (!res.ok) throw new Error('Failed to delete product');
-        showToast('Product deleted successfully', 'success');
+        // showToast('Product deleted successfully', 'success');
         setProductsState((prev) => prev.filter((p) => p.id !== id));
       } catch (error) {
-        showToast(error.message || 'Failed to delete product', 'error');
+        // showToast(error.message || 'Failed to delete product', 'error');
       } finally {
         setLoadingId(null);
       }
@@ -171,8 +171,19 @@ const Products = () => {
               <input name="stock_quantity" type="number" value={form.stock_quantity} onChange={handleChange} className="w-full border rounded px-3 py-2" required />
             </div>
             <div>
-              <label className="block text-sm font-medium">Category</label>
-              <input name="category" value={form.category} onChange={handleChange} className="w-full border rounded px-3 py-2" required />
+              <label className="block text-sm font-medium">Brand</label>
+              <select 
+                name="category" 
+                value={form.category} 
+                onChange={handleChange} 
+                className="w-full border rounded px-3 py-2" 
+                required
+              >
+                <option value="">Select Brand</option>
+                {['Nike', 'Adidas', 'Jordan', 'Puma', 'Vans', 'Merrell', 'Allbirds', 'New Balance', 'Converse', 'Reebok', 'Under Armour', 'ASICS'].map(brand => (
+                  <option key={brand} value={brand}>{brand}</option>
+                ))}
+              </select>
             </div>
             <div>
               <label className="block text-sm font-medium">Description</label>
@@ -244,7 +255,7 @@ const Products = () => {
           >
             {allCategories.map(category => (
               <option key={category} value={category}>
-                {category === 'all' ? 'All Categories' : category}
+                {category === 'all' ? 'All Brands' : category}
               </option>
             ))}
           </select>
@@ -346,9 +357,6 @@ const Products = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <div className="flex items-center space-x-2">
-                          <button className="text-blue-600 hover:text-blue-800 p-1 rounded">
-                            <Eye className="w-4 h-4" />
-                          </button>
                           <button
                             className="text-green-600 hover:text-green-800 p-1 rounded"
                             onClick={() => { setEditProduct(product); setEditModalOpen(true); }}

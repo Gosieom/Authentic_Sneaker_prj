@@ -4,7 +4,6 @@ import { useUIStore } from './stores/uiStore';
 import LoginForm from './components/Auth/LoginForm';
 import Sidebar from './components/Layout/Sidebar';
 import Header from './components/Layout/Header';
-import Toast from './components/Common/Toast';
 import Dashboard from './components/Pages/Dashboard';
 import Products from './components/Pages/Products';
 import AddProduct from './components/Pages/AddProduct';
@@ -14,6 +13,7 @@ import Categories from './components/Pages/Categories';
 import Messages from './components/Pages/Messages';
 import Payments from './components/Pages/Payments';
 import Settings from './components/Pages/Settings';
+import Profile from './components/Pages/Profile';
 
 function App() {
   const { isAuthenticated, isLoading, verifyAuth } = useAuthStore();
@@ -38,7 +38,6 @@ function App() {
     return (
       <>
         <LoginForm />
-        <Toast />
       </>
     );
   }
@@ -63,6 +62,8 @@ function App() {
         return <Payments />;
       case 'settings':
         return <Settings />;
+      case 'profile':
+        return <Profile />;
       default:
         return <Dashboard />;
     }
@@ -79,7 +80,6 @@ function App() {
         </main>
       </div>
       
-      <Toast />
     </div>
   );
 }

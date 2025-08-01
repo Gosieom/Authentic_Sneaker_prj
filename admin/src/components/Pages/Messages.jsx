@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { Mail, Trash2, Archive, Search } from 'lucide-react';
 import { useDataStore } from '../../stores/dataStore';
-import { useUIStore } from '../../stores/uiStore';
 
 const Messages = () => {
   const { messages } = useDataStore();
-  const { showToast } = useUIStore();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedMessage, setSelectedMessage] = useState(null);
 
@@ -17,12 +15,12 @@ const Messages = () => {
 
   const handleDelete = (messageId) => {
     if (window.confirm('Are you sure you want to delete this message?')) {
-      showToast('Message deleted successfully', 'success');
+      // Removed showToast('Message deleted successfully', 'success');
     }
   };
 
   const handleArchive = (messageId) => {
-    showToast('Message archived successfully', 'success');
+    // Removed showToast('Message archived successfully', 'success');
   };
 
   const MessageDetailModal = ({ message, onClose }) => {

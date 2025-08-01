@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Save, Upload, Eye, EyeOff } from 'lucide-react';
-import { useUIStore } from '../../stores/uiStore';
 
 const Settings = () => {
-  const { showToast } = useUIStore();
   const [settings, setSettings] = useState({
     storeName: 'My Awesome Store',
     contactEmail: 'contact@mystore.com',
@@ -43,23 +41,23 @@ const Settings = () => {
 
   const handleSettingsSubmit = (e) => {
     e.preventDefault();
-    showToast('Settings updated successfully!', 'success');
+    // Removed showToast('Settings updated successfully!', 'success');
   };
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
     
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      showToast('New passwords do not match', 'error');
+      // Removed showToast('New passwords do not match', 'error');
       return;
     }
 
     if (passwordData.newPassword.length < 8) {
-      showToast('Password must be at least 8 characters long', 'error');
+      // Removed showToast('Password must be at least 8 characters long', 'error');
       return;
     }
 
-    showToast('Password updated successfully!', 'success');
+    // Removed showToast('Password updated successfully!', 'success');
     setPasswordData({
       currentPassword: '',
       newPassword: '',

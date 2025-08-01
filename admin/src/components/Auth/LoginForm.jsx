@@ -1,27 +1,25 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
 import { useAuthStore } from '../../stores/authStore';
-import { useUIStore } from '../../stores/uiStore';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const { login, isLoading } = useAuthStore();
-  const { showToast } = useUIStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     try {
       const success = await login(email, password);
-      if (success) {
-        showToast('Login successful!', 'success');
-      } else {
-        showToast('Invalid credentials or insufficient permissions', 'error');
+      if (!success) {
+        // Removed showToast('Invalid credentials or insufficient permissions', 'error');
+        console.error('Login failed');
       }
     } catch (error) {
-      showToast(error.message || 'Login failed. Please try again.', 'error');
+      // Removed showToast(error.message || 'Login failed. Please try again.', 'error');
+      console.error('Login error:', error);
     }
   };
 

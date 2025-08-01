@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { Plus, Edit, Trash2, Package } from 'lucide-react';
 import { useDataStore } from '../../stores/dataStore';
-import { useUIStore } from '../../stores/uiStore';
 
 const Categories = () => {
   const { categories, products } = useDataStore();
-  const { showToast } = useUIStore();
   const [isAdding, setIsAdding] = useState(false);
   const [newCategory, setNewCategory] = useState('');
   const [editingCategory, setEditingCategory] = useState(null);
@@ -18,11 +16,9 @@ const Categories = () => {
   const handleAddCategory = (e) => {
     e.preventDefault();
     if (newCategory.trim() && !categories.includes(newCategory.trim())) {
-      showToast('Category added successfully!', 'success');
       setNewCategory('');
       setIsAdding(false);
     } else {
-      showToast('Category already exists or is empty', 'error');
     }
   };
 
@@ -34,7 +30,6 @@ const Categories = () => {
   const handleUpdateCategory = (e) => {
     e.preventDefault();
     if (editValue.trim() && editValue !== editingCategory) {
-      showToast('Category updated successfully!', 'success');
       setEditingCategory(null);
       setEditValue('');
     } else {
@@ -46,12 +41,10 @@ const Categories = () => {
   const handleDeleteCategory = (category) => {
     const productCount = getCategoryProductCount(category);
     if (productCount > 0) {
-      showToast(`Cannot delete category with ${productCount} products`, 'error');
       return;
     }
     
     if (window.confirm(`Are you sure you want to delete the "${category}" category?`)) {
-      showToast('Category deleted successfully!', 'success');
     }
   };
 

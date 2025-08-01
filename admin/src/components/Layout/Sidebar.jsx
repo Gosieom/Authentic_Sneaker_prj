@@ -6,6 +6,7 @@ import {
   Plus, 
   CreditCard, 
   LogOut,
+  User,
 } from 'lucide-react';
 import { useUIStore } from '../../stores/uiStore';
 import { useAuthStore } from '../../stores/authStore';
@@ -20,6 +21,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     { id: 'orders', label: 'Orders', icon: ShoppingCart },
     { id: 'add-product', label: 'Add Product', icon: Plus },
     { id: 'payments', label: 'Payments', icon: CreditCard },
+    { id: 'profile', label: 'Profile', icon: User },
   ];
 
   const handleItemClick = (id) => {

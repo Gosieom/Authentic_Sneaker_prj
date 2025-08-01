@@ -5,11 +5,11 @@ import { useUIStore } from '../../stores/uiStore';
 
 const AddProduct = () => {
   const { addProduct } = useDataStore();
-  const { showToast, setCurrentPage } = useUIStore();
+  const { setCurrentPage } = useUIStore();
   
   const [formData, setFormData] = useState({
     product_name: '',
-    category: 'Sports',
+    category: 'Nike',
     price: '',
     discount_percentage: '',
     stock_quantity: '',
@@ -65,18 +65,18 @@ const AddProduct = () => {
     e.preventDefault();
     
     if (!formData.product_name || !formData.category || !formData.price || !formData.stock_quantity) {
-      showToast('Please fill in all required fields', 'error');
+      // showToast('Please fill in all required fields', 'error'); // Removed showToast
       return;
     }
 
     if (formData.available_sizes.length === 0) {
-      showToast('Please select at least one size', 'error');
+      // showToast('Please select at least one size', 'error'); // Removed showToast
       return;
     }
 
     const validImages = formData.product_images.filter(img => img.trim() !== '');
     if (validImages.length === 0) {
-      showToast('Please provide at least one product image', 'error');
+      // showToast('Please provide at least one product image', 'error'); // Removed showToast
       return;
     }
 
@@ -96,15 +96,15 @@ const AddProduct = () => {
       };
 
       await addProduct(productData);
-      showToast('Product added successfully!', 'success');
+      // showToast('Product added successfully!', 'success'); // Removed showToast
 
     } catch (error) {
-      showToast(error.message || 'Failed to add product', 'error');
+      // showToast(error.message || 'Failed to add product', 'error'); // Removed showToast
     } finally {
       setIsSubmitting(false);
       setFormData({
         product_name: '',
-        category: 'Sports',
+        category: 'Nike',
         price: '',
         discount_percentage: '',
         stock_quantity: '',
@@ -141,7 +141,7 @@ const AddProduct = () => {
             
             <div>
               <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
-                Category *
+                Brand *
               </label>
               <select
                 id="category"
@@ -152,9 +152,9 @@ const AddProduct = () => {
                 required
                 disabled={isSubmitting}
               >
-                <option value="">Select Category</option>
-                {['Sports', 'Fashion', 'Party', 'Tourist', 'Jungle'].map(category => (
-                  <option key={category} value={category}>{category}</option>
+                <option value="">Select Brand</option>
+                {['Nike', 'Adidas', 'Jordan', 'Puma', 'Vans', 'Merrell', 'Allbirds', 'New Balance', 'Converse', 'Reebok', 'Under Armour', 'ASICS'].map(brand => (
+                  <option key={brand} value={brand}>{brand}</option>
                 ))}
               </select>
             </div>

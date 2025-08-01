@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Eye, Filter, Search, RefreshCw, X } from 'lucide-react';
-import { useUIStore } from '../../stores/uiStore';
 
 const Orders = () => {
-  const { showToast } = useUIStore();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -25,7 +23,7 @@ const Orders = () => {
       const data = await res.json();
       setOrdersState(Array.isArray(data.orders) ? data.orders : []);
     } catch (error) {
-      showToast(error.message || 'Failed to load orders', 'error');
+      // Removed showToast(error.message || 'Failed to load orders', 'error');
       setOrdersState([]);
     } finally {
       setOrdersLoading(false);
@@ -41,10 +39,10 @@ const Orders = () => {
         body: JSON.stringify({ delivery_status: newStatus }),
       });
       if (!res.ok) throw new Error('Failed to update order status');
-      showToast(`Order status updated to ${newStatus}`, 'success');
+      // Removed showToast(`Order status updated to ${newStatus}`, 'success');
       await loadOrders();
     } catch (error) {
-      showToast(error.message || 'Failed to update order status', 'error');
+      // Removed showToast(error.message || 'Failed to update order status', 'error');
     }
   };
 

@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Package, IndianRupee, ShoppingCart, AlertCircle, RefreshCw } from 'lucide-react';
-import { useUIStore } from '../../stores/uiStore';
-
 
 const Dashboard = () => {
-  const { showToast } = useUIStore();
-
   const [dashboardData, setDashboardData] = useState({
     totalProducts: 0,
     totalOrders: 0,
@@ -40,7 +36,7 @@ const Dashboard = () => {
         throw new Error('Failed to fetch dashboard data');
       }
     } catch (error) {
-      showToast(error.message || 'Failed to load dashboard data', 'error');
+      console.error('Failed to load dashboard data:', error);
       setDashboardData((prev) => ({ ...prev, loading: false }));
     }
   };
