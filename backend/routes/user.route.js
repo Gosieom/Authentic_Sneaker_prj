@@ -1,6 +1,6 @@
 // routes/user.route.js
 import express from 'express';
-import { signupUser, loginUser, logoutUser, adminLogin, logoutAdmin, requestPasswordReset,  resetPassword} from '../controllers/user.controller.js';
+import { signupUser, loginUser, logoutUser, adminLogin, logoutAdmin, requestPasswordReset, resetPassword, getAdminProfile, changeAdminPassword } from '../controllers/user.controller.js';
 import { getDashboardData, getPaymentsOverview } from '../controllers/data.controller.js';
 import isAdmin from '../middlewares/isAdmin.js'; // Admin-only access middleware
 
@@ -15,4 +15,6 @@ router.get('/dashboard-data',isAdmin,getDashboardData);
 router.get('/payments-data',isAdmin, getPaymentsOverview);
 router.post('/request-password-reset',requestPasswordReset);
 router.post('/reset-password',resetPassword);
+router.get('/admin-profile', isAdmin, getAdminProfile);
+router.put('/admin-change-password', isAdmin, changeAdminPassword);
 export default router;

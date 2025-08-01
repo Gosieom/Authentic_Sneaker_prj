@@ -224,3 +224,106 @@ export async function resetPassword(req, res) {
     return res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
   }
 }
+
+// Get admin profile information
+export const getAdminProfile = async (req, res) => {
+  try {
+    // Get admin token from cookies
+    const adminToken = req.cookies.admin_token;
+    
+    if (!adminToken) {
+      return res.status(401).json({ success: false, message: 'Admin token not found' });
+    }
+
+    // Verify token
+    const decoded = jwt.verify(adminToken, process.env.JWT_SECRET);
+    
+    // Get admin info from database
+    const adminRes = await pool.query(
+      'SELECT id, email, full_name FROM users WHERE id = $1 AND is_admin = TRUE',
+      [decoded.id]
+    );
+
+    if (adminRes.rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'Admin not found' });
+    }
+
+    const admin = adminRes.rows[0];
+
+    res.json({
+      success: true,
+      admin: {
+        id: admin.id,
+        email: admin.email,
+        full_name: admin.full_name
+      }
+    });
+
+  } catch (err) {
+    console.error('Get admin profile error:', err);
+    if (err.name === 'JsonWebTokenError') {
+      return res.status(401).json({ success: false, message: 'Invalid token' });
+    }
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+// Change admin password
+export const changeAdminPassword = async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+
+  if (!currentPassword || !newPassword) {
+    return res.status(400).json({ success: false, message: 'Current password and new password are required' });
+  }
+
+  try {
+    // Get admin token from cookies
+    const adminToken = req.cookies.admin_token;
+    
+    if (!adminToken) {
+      return res.status(401).json({ success: false, message: 'Admin token not found' });
+    }
+
+    // Verify token
+    const decoded = jwt.verify(adminToken, process.env.JWT_SECRET);
+    
+    // Get admin with password from database
+    const adminRes = await pool.query(
+      'SELECT id, email, password FROM users WHERE id = $1 AND is_admin = TRUE',
+      [decoded.id]
+    );
+
+    if (adminRes.rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'Admin not found' });
+    }
+
+    const admin = adminRes.rows[0];
+
+    // Verify current password
+    const isCurrentPasswordValid = await bcrypt.compare(currentPassword, admin.password);
+    if (!isCurrentPasswordValid) {
+      return res.status(400).json({ success: false, message: 'Current password is incorrect' });
+    }
+
+    // Hash new password
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update password in database
+    await pool.query(
+      'UPDATE users SET password = $1 WHERE id = $2',
+      [hashedNewPassword, admin.id]
+    );
+
+    res.json({
+      success: true,
+      message: 'Password updated successfully'
+    });
+
+  } catch (err) {
+    console.error('Change admin password error:', err);
+    if (err.name === 'JsonWebTokenError') {
+      return res.status(401).json({ success: false, message: 'Invalid token' });
+    }
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
