@@ -8,7 +8,7 @@ import { transformApiProduct, transformCartToOrderItems } from '../utils/dataTra
 const defaultFilters = {
   search: '',
   priceRange: [0, 10000],
-  categories: [],
+  brands: [],
   sizes: [],
   sortBy: 'popularity'
 };
@@ -27,6 +27,12 @@ export const useStore = create(
       // Cart
       cart: [],
       addToCart: (item) => {
+        // Check if product is out of stock
+        if (item.product.stock_quantity === 0 || item.product.stock_quantity <= 0) {
+          console.warn('Cannot add out of stock product to cart');
+          return;
+        }
+        
         const existingItem = get().cart.find(
           (cartItem) =>
             cartItem.product.id === item.product.id &&

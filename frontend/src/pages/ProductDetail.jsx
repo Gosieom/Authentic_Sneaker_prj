@@ -65,11 +65,18 @@ const ProductDetail = () => {
   const images = (product && Array.isArray(product.images)) ? product.images : [];
   const sizes = (product && Array.isArray(product.sizes)) ? product.sizes : [];
 
+  // Check if product is out of stock
+  const isOutOfStock = product && (product.stock_quantity === 0 || product.stock_quantity <= 0);
+
   const relatedProducts = products.filter(p => 
     product && p.category === product.category && p.id !== product.id
   ).slice(0, 4);
 
   const handleAddToCart = () => {
+    if (isOutOfStock) {
+      alert('This product is out of stock and cannot be added to cart.');
+      return;
+    }
     if (!selectedSize) {
       alert('Please select size');
       return;
@@ -83,6 +90,10 @@ const ProductDetail = () => {
   };
 
   const handleBuyNow = () => {
+    if (isOutOfStock) {
+      alert('This product is out of stock and cannot be purchased.');
+      return;
+    }
     if (!selectedSize) {
       alert('Please select size');
       return;
@@ -274,32 +285,64 @@ const ProductDetail = () => {
 
           {/* Action Buttons */}
           <div className="space-y-4 mb-8">
-            {/* Buy Now Button - Primary */}
-            <button
-              onClick={handleBuyNow}
-              className="w-full bg-orange-500 text-white px-6 py-4 rounded-lg hover:bg-orange-600 transition-all duration-200 flex items-center justify-center space-x-2 text-lg font-semibold transform hover:scale-[1.02]"
-            >
-              <Zap className="h-5 w-5" />
-              <span>Buy Now</span>
-            </button>
+            {isOutOfStock ? (
+              /* Out of Stock State */
+              <div className="space-y-4">
+                <div className="w-full bg-red-500 text-white px-6 py-4 rounded-lg flex items-center justify-center space-x-2 text-lg font-semibold">
+                  <AlertCircle className="h-5 w-5" />
+                  <span>Out of Stock</span>
+                </div>
+                <p className="text-center text-slate-600 text-sm">
+                  This product is currently out of stock. Please check back later or contact us for availability.
+                </p>
+                <div className="flex space-x-4">
+                  <button
+                    disabled
+                    className="flex-1 border-2 border-slate-300 text-slate-400 px-6 py-3 rounded-lg cursor-not-allowed flex items-center justify-center space-x-2 font-medium"
+                  >
+                    <ShoppingCart className="h-5 w-5" />
+                    <span>Add to Cart</span>
+                  </button>
+                  
+                  <button
+                    onClick={handleWishlistToggle}
+                    className="px-6 py-3 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors duration-200"
+                  >
+                    <Heart className={`h-5 w-5 ${isInWishlist(product.id) ? 'text-red-500 fill-current' : 'text-slate-600'}`} />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              /* In Stock State */
+              <>
+                {/* Buy Now Button - Primary */}
+                <button
+                  onClick={handleBuyNow}
+                  className="w-full bg-orange-500 text-white px-6 py-4 rounded-lg hover:bg-orange-600 transition-all duration-200 flex items-center justify-center space-x-2 text-lg font-semibold transform hover:scale-[1.02]"
+                >
+                  <Zap className="h-5 w-5" />
+                  <span>Buy Now</span>
+                </button>
 
-            {/* Add to Cart and Wishlist */}
-            <div className="flex space-x-4">
-              <button
-                onClick={handleAddToCart}
-                className="flex-1 border-2 border-slate-800 text-slate-800 px-6 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center justify-center space-x-2 font-medium"
-              >
-                <ShoppingCart className="h-5 w-5" />
-                <span>Add to Cart</span>
-              </button>
-              
-              <button
-                onClick={handleWishlistToggle}
-                className="px-6 py-3 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors duration-200"
-              >
-                <Heart className={`h-5 w-5 ${isInWishlist(product.id) ? 'text-red-500 fill-current' : 'text-slate-600'}`} />
-              </button>
-            </div>
+                {/* Add to Cart and Wishlist */}
+                <div className="flex space-x-4">
+                  <button
+                    onClick={handleAddToCart}
+                    className="flex-1 border-2 border-slate-800 text-slate-800 px-6 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition-colors duration-200 flex items-center justify-center space-x-2 font-medium"
+                  >
+                    <ShoppingCart className="h-5 w-5" />
+                    <span>Add to Cart</span>
+                  </button>
+                  
+                  <button
+                    onClick={handleWishlistToggle}
+                    className="px-6 py-3 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors duration-200"
+                  >
+                    <Heart className={`h-5 w-5 ${isInWishlist(product.id) ? 'text-red-500 fill-current' : 'text-slate-600'}`} />
+                  </button>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Features */}

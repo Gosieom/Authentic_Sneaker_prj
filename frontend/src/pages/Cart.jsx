@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Minus, Plus, X, ShoppingBag } from 'lucide-react';
+import { Minus, Plus, X, ShoppingBag, AlertCircle } from 'lucide-react';
 import { useStore } from '../store/useStore';
 
 const Cart = () => {
@@ -35,52 +35,66 @@ const Cart = () => {
         {/* Cart Items */}
         <div className="lg:col-span-2">
           <div className="space-y-4">
-            {cart.map((item) => (
-              <div key={item.id} className="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4">
-                <img
-                  src={item.product.image}
-                  alt={item.product.name}
-                  className="w-24 h-24 object-cover rounded-lg"
-                />
-                
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-slate-900">{item.product.name}</h3>
-                  <p className="text-slate-600">{item.product.brand}</p>
-                  <div className="flex items-center space-x-4 mt-2">
-                    <span className="text-sm text-slate-500">Size: {item.selectedSize}</span>
+            {cart.map((item) => {
+              const isOutOfStock = item.product.stock_quantity === 0 || item.product.stock_quantity <= 0;
+              return (
+                <div key={item.id} className={`bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 ${isOutOfStock ? 'border-2 border-red-200' : ''}`}>
+                  <img
+                    src={item.product.image}
+                    alt={item.product.name}
+                    className="w-24 h-24 object-cover rounded-lg"
+                  />
+                  
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-slate-900">{item.product.name}</h3>
+                    <p className="text-slate-600">{item.product.brand}</p>
+                    <div className="flex items-center space-x-4 mt-2">
+                      <span className="text-sm text-slate-500">Size: {item.selectedSize}</span>
+                    </div>
+                    {isOutOfStock && (
+                      <div className="flex items-center space-x-2 mt-2">
+                        <AlertCircle className="h-4 w-4 text-red-500" />
+                        <span className="text-sm text-red-600 font-medium">Out of Stock</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        className="p-1 rounded-full hover:bg-slate-100 transition-colors duration-200"
+                      >
+                        <Minus className="h-4 w-4" />
+                      </button>
+                      <span className="w-8 text-center">{item.quantity}</span>
+                      <button
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        disabled={isOutOfStock}
+                        className={`p-1 rounded-full transition-colors duration-200 ${
+                          isOutOfStock 
+                            ? 'text-slate-300 cursor-not-allowed' 
+                            : 'hover:bg-slate-100'
+                        }`}
+                      >
+                        <Plus className="h-4 w-4" />
+                      </button>
+                    </div>
+
+                    <div className="text-lg font-semibold text-slate-900">
+                      ₹{(item.product.price * item.quantity).toFixed(2)}
+                    </div>
+
+                    <button
+                      onClick={() => removeFromCart(item.id)}
+                      className="p-2 text-red-500 hover:bg-red-50 rounded-full transition-colors duration-200"
+                    >
+                      <X className="h-5 w-5" />
+                    </button>
                   </div>
                 </div>
-
-                <div className="flex items-center space-x-4">
-                  <div className="flex items-center space-x-2">
-                    <button
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                      className="p-1 rounded-full hover:bg-slate-100 transition-colors duration-200"
-                    >
-                      <Minus className="h-4 w-4" />
-                    </button>
-                    <span className="w-8 text-center">{item.quantity}</span>
-                    <button
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="p-1 rounded-full hover:bg-slate-100 transition-colors duration-200"
-                    >
-                      <Plus className="h-4 w-4" />
-                    </button>
-                  </div>
-
-                  <div className="text-lg font-semibold text-slate-900">
-                    ₹{(item.product.price * item.quantity).toFixed(2)}
-                  </div>
-
-                  <button
-                    onClick={() => removeFromCart(item.id)}
-                    className="p-2 text-red-500 hover:bg-red-50 rounded-full transition-colors duration-200"
-                  >
-                    <X className="h-5 w-5" />
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -114,10 +128,26 @@ const Cart = () => {
 
             <Link
               to="/checkout"
-              className="w-full bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 transition-colors duration-200 flex items-center justify-center space-x-2"
+              className={`w-full py-3 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 ${
+                cart.some(item => item.product.stock_quantity === 0 || item.product.stock_quantity <= 0)
+                  ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                  : 'bg-orange-500 text-white hover:bg-orange-600'
+              }`}
+              onClick={(e) => {
+                if (cart.some(item => item.product.stock_quantity === 0 || item.product.stock_quantity <= 0)) {
+                  e.preventDefault();
+                  alert('Please remove out-of-stock items from your cart before proceeding to checkout.');
+                }
+              }}
             >
               <span>Proceed to Checkout</span>
             </Link>
+
+            {cart.some(item => item.product.stock_quantity === 0 || item.product.stock_quantity <= 0) && (
+              <p className="text-sm text-red-600 text-center mt-2">
+                Please remove out-of-stock items to proceed with checkout
+              </p>
+            )}
 
             <Link
               to="/shop"

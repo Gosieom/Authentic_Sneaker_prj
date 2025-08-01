@@ -1,16 +1,22 @@
 import React from 'react';
 import { X } from 'lucide-react';
 import { useStore } from '../store/useStore';
-import { sizes } from '../data/products';
+import { sizes, brands } from '../data/products';
 
-const categories = ['Sports', 'Fashion', 'Party', 'Tourist', 'Jungle'];
-//
+const defaultFilters = {
+  search: '',
+  priceRange: [0, 10000],
+  brands: [],
+  sizes: [],
+  sortBy: 'popularity'
+};
+
 const Filters = ({ isOpen, onClose }) => {
   const { filters, setFilters, resetFilters } = useStore();
   
   // Initialize filters if they don't exist
   React.useEffect(() => {
-    if (!filters || !filters.categories || !filters.sizes || !filters.priceRange || !filters.sortBy) {
+    if (!filters || !filters.brands || !filters.sizes || !filters.priceRange || !filters.sortBy) {
       setFilters({
         ...defaultFilters,
         ...(filters || {})
@@ -25,12 +31,12 @@ const Filters = ({ isOpen, onClose }) => {
     setFilters({ ...filters, priceRange: newRange });
   };
 
-  const handleCategoryToggle = (category) => {
-    const currentCategories = filters?.categories || [];
-    const newCategories = currentCategories.includes(category)
-      ? currentCategories.filter(c => c !== category)
-      : [...currentCategories, category];
-    setFilters({ ...filters, categories: newCategories });
+  const handleBrandToggle = (brand) => {
+    const currentBrands = filters?.brands || [];
+    const newBrands = currentBrands.includes(brand)
+      ? currentBrands.filter(b => b !== brand)
+      : [...currentBrands, brand];
+    setFilters({ ...filters, brands: newBrands });
   };
 
   const handleSizeToggle = (size) => {
@@ -94,19 +100,19 @@ const Filters = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            {/* Categories */}
+            {/* Brands */}
             <div>
-              <h3 className="text-lg font-medium text-slate-900 mb-3">Categories</h3>
-              <div className="space-y-2">
-                {categories.map((category) => (
-                  <label key={category} className="flex items-center">
+              <h3 className="text-lg font-medium text-slate-900 mb-3">Brands</h3>
+              <div className="space-y-2 max-h-48 overflow-y-auto">
+                {brands.map((brand) => (
+                  <label key={brand} className="flex items-center">
                     <input
                       type="checkbox"
-                      checked={(filters?.categories || []).includes(category)}
-                      onChange={() => handleCategoryToggle(category)}
+                      checked={(filters?.brands || []).includes(brand)}
+                      onChange={() => handleBrandToggle(brand)}
                       className="rounded border-slate-300 text-orange-500 focus:ring-orange-500"
                     />
-                    <span className="ml-3 text-slate-700">{category}</span>
+                    <span className="ml-3 text-slate-700">{brand}</span>
                   </label>
                 ))}
               </div>

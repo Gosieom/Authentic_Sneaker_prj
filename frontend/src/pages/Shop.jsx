@@ -51,9 +51,9 @@ const Shop = () => {
         }
       }
 
-      // Category filter
-      if (filters?.categories?.length > 0 && product.category) {
-        if (!filters.categories.includes(product.category)) {
+      // Brand filter
+      if (filters?.brands?.length > 0 && product.category) {
+        if (!filters.brands.includes(product.category)) {
           return false;
         }
       }

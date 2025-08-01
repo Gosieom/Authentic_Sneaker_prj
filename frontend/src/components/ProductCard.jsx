@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, ShoppingCart, Star } from 'lucide-react';
+import { Heart, ShoppingCart, Star, AlertCircle } from 'lucide-react';
 import { useStore } from '../store/useStore';
 
 const ProductCard = ({ product }) => {
@@ -8,8 +8,14 @@ const ProductCard = ({ product }) => {
   const [selectedSize] = useState(sizes[0]); // keep for addToCart compatibility
   const { addToCart, isInWishlist, addToWishlist, removeFromWishlist } = useStore();
 
+  // Check if product is out of stock
+  const isOutOfStock = product.stock_quantity === 0 || product.stock_quantity <= 0;
+
   const handleAddToCart = (e) => {
     e.preventDefault();
+    if (isOutOfStock) {
+      return; // Prevent adding out of stock items
+    }
     addToCart({
       product,
       quantity: 1,
@@ -41,7 +47,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <div
-      className="group relative bg-white rounded-md shadow-sm overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 w-full max-w-xs mx-auto"
+      className={`group relative bg-white rounded-md shadow-sm overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 w-full max-w-xs mx-auto ${isOutOfStock ? 'opacity-75' : ''}`}
     >
       <Link to={`/product/${product.id}`}>
         <div className="relative aspect-square overflow-hidden">
@@ -50,20 +56,26 @@ const ProductCard = ({ product }) => {
             alt={product.product_name || product.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
+          {/* Out of Stock Badge */}
+          {isOutOfStock && (
+            <div className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold z-20">
+              OUT OF STOCK
+            </div>
+          )}
           {/* Discount Badge */}
-          {product.discount_percentage && product.discount_percentage > 0 && (
+          {product.discount_percentage && product.discount_percentage > 0 && !isOutOfStock && (
             <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold z-10">
               -{product.discount_percentage}%
             </div>
           )}
           {/* Sale Badge */}
-          {product.onSale && (
+          {product.onSale && !isOutOfStock && (
             <div className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold z-10">
               SALE
             </div>
           )}
           {/* Featured Badge */}
-          {(product.is_featured || product.featured) && (
+          {(product.is_featured || product.featured) && !isOutOfStock && (
             <div className="absolute top-2 right-2 bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-bold">
               FEATURED
             </div>
@@ -123,13 +135,23 @@ const ProductCard = ({ product }) => {
         </Link>
 
         {/* Add to Cart Button - Bottom Right Corner */}
-        <button
-          onClick={handleAddToCart}
-          className="absolute bottom-2 right-2 p-2 rounded-full bg-slate-800 text-white hover:bg-slate-900 transition-colors duration-200 shadow-md transform hover:scale-105"
-          aria-label="Add to Cart"
-        >
-          <ShoppingCart className="h-4 w-4" />
-        </button>
+        {isOutOfStock ? (
+          <button
+            disabled
+            className="absolute bottom-2 right-2 p-2 rounded-full bg-red-500 text-white cursor-not-allowed opacity-75 shadow-md"
+            aria-label="Out of Stock"
+          >
+            <AlertCircle className="h-4 w-4" />
+          </button>
+        ) : (
+          <button
+            onClick={handleAddToCart}
+            className="absolute bottom-2 right-2 p-2 rounded-full bg-slate-800 text-white hover:bg-slate-900 transition-colors duration-200 shadow-md transform hover:scale-105"
+            aria-label="Add to Cart"
+          >
+            <ShoppingCart className="h-4 w-4" />
+          </button>
+        )}
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ export const products = [
     ],
     description: 'Experience ultimate comfort with our Air Max Revolution. Featuring advanced cushioning technology and premium materials for all-day wear.',
     brand: 'Nike',
-    category: 'Running',
+    category: 'Nike',
     sizes: ['6', '7', '8', '9', '10', '11', '12'],
     colors: ['Black', 'White', 'Red'],
     inStock: true,
@@ -32,7 +32,7 @@ export const products = [
     ],
     description: 'Timeless design meets modern comfort in our Classic Leather Sneaker. Perfect for everyday wear with premium leather construction.',
     brand: 'Adidas',
-    category: 'Casual',
+    category: 'Adidas',
     sizes: ['6', '7', '8', '9', '10', '11'],
     colors: ['White', 'Black', 'Brown'],
     inStock: true,
@@ -53,7 +53,7 @@ export const products = [
     ],
     description: 'Dominate the court with our Pro Basketball High. Superior ankle support and responsive cushioning for peak performance.',
     brand: 'Jordan',
-    category: 'Basketball',
+    category: 'Jordan',
     sizes: ['7', '8', '9', '10', '11', '12', '13'],
     colors: ['Black', 'Red', 'Blue'],
     inStock: true,
@@ -72,7 +72,7 @@ export const products = [
     ],
     description: 'Style meets function in our Urban Street Walker. Designed for the modern lifestyle with premium comfort and street-ready aesthetics.',
     brand: 'Vans',
-    category: 'Casual',
+    category: 'Vans',
     sizes: ['6', '7', '8', '9', '10', '11'],
     colors: ['Gray', 'Black', 'Navy'],
     inStock: true,
@@ -91,7 +91,7 @@ export const products = [
     ],
     description: 'Conquer any terrain with our Trail Runner Pro. Built for outdoor adventures with superior grip and durability.',
     brand: 'Merrell',
-    category: 'Running',
+    category: 'Merrell',
     sizes: ['7', '8', '9', '10', '11', '12'],
     colors: ['Green', 'Brown', 'Orange'],
     inStock: true,
@@ -111,7 +111,7 @@ export const products = [
     ],
     description: 'Less is more with our Minimalist Lifestyle shoe. Clean lines and premium materials for the discerning individual.',
     brand: 'Allbirds',
-    category: 'Casual',
+    category: 'Allbirds',
     sizes: ['6', '7', '8', '9', '10', '11'],
     colors: ['White', 'Beige', 'Light Gray'],
     inStock: true,
@@ -122,7 +122,7 @@ export const products = [
   }
 ];
 
-export const brands = ['Nike', 'Adidas', 'Jordan', 'Vans', 'Merrell', 'Allbirds'];
+export const brands = ['Nike', 'Adidas', 'Jordan', 'Puma', 'Vans', 'Merrell', 'Allbirds', 'New Balance', 'Converse', 'Reebok', 'Under Armour', 'ASICS'];
 export const categories = ['Running', 'Basketball', 'Casual', 'Formal', 'Sport'];
 export const sizes = ['6', '7', '8', '9', '10', '11', '12', '13'];
 export const colors = ['Black', 'White', 'Red', 'Blue', 'Green', 'Brown', 'Gray', 'Navy', 'Orange', 'Beige', 'Light Gray'];
